@@ -30,7 +30,7 @@ urlpatterns = [
     path('vistaAgregarPelicula/',views.vistaAgregarPelicula),
     path('consultarPelicula/<str:id>/',views.consultarPeliculaId),
     path('actualizarPelicula/',views.actualizarPelicula),
-    path('eliminarPelicula/<int:id>/',views.eliminarPelicula)
+    path('eliminarPelicula/<str:id>/',views.eliminarPelicula)
 ]
 if settings.DEBUG:
     urlpatterns +=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

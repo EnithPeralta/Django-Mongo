@@ -58,7 +58,7 @@ def agregarPelicula(request):
         mensaje = "Pelicula Agregada Correctamente"
     except Error as error:
         mensaje = str(error)
-    retorno = {"mensaje":mensaje,'idPelicula':pelicula.id}
+    retorno = {"mensaje":mensaje,'idPelicula':pelicula.pk}
     #return JsonResponse(retorno)
     return render(request,"agregarPelicula.html",retorno)
 
@@ -75,14 +75,14 @@ def consultarPeliculaId(request,id):
 
 def actualizarPelicula(request):
     try:
-        idPelicula = request.POST['idPelicula']
+        idPelicula = ObjectId(request.POST['idPelicula'])
         peliculaActulizar = Pelicula.objects.get(pk=idPelicula)
         peliculaActulizar.codigo = request.POST['codigo']
         peliculaActulizar.titulo = request.POST['titulo']
         peliculaActulizar.protagonista = request.POST['protagonista']
         peliculaActulizar.duracion = int(request.POST['duracion'])
         peliculaActulizar.resumen = request.POST['resumen']
-        idGenero = int(request.POST['cbGenero'])
+        idGenero = ObjectId(request.POST['cbGenero'])
 
         genero = Genero.objects.get(pk=idGenero)
         peliculaActulizar.genero = genero
@@ -99,7 +99,7 @@ def actualizarPelicula(request):
 
 def eliminarPelicula(request,id):
     try:
-        peliculaEliminar = Pelicula.objects.get(pk=id)
+        peliculaEliminar = Pelicula.objects.get(pk=ObjectId(id))
         peliculaEliminar.delete() 
         mensaje = "Pelicula Eliminada Correctamente"
     except Error as error:
